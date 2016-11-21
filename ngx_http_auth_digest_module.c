@@ -1249,7 +1249,7 @@ static int ngx_http_auth_digest_srcaddr_key(struct sockaddr *sa, socklen_t len, 
 #if (NGX_HAVE_INET6)
   case AF_INET6:
     s6 = (struct sockaddr_in6 *) sa;
-    *key = ngx_crc32_short((u_char *)&s6->s6_addr, sizeof(s6->s6_addr));
+    *key = ngx_crc32_short((u_char *)&s6->sin6_addr, sizeof(s6->sin6_addr));
     return 1;
 #endif
   default:
@@ -1279,7 +1279,7 @@ static int ngx_http_auth_digest_srcaddr_cmp(struct sockaddr *sa1, socklen_t len1
   case AF_INET6:
     s61 = (struct sockaddr_in6 *) sa1;
     s62 = (struct sockaddr_in6 *) sa2;
-    return ngx_memcmp(&s61->s6_addr, &s62->s6_addr, sizeof(s61->s6_addr));
+    return ngx_memcmp(&s61->sin6_addr, &s62->sin6_addr, sizeof(s61->sin6_addr));
 #endif
   default:
     break;
